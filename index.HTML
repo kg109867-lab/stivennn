@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Love Heart</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
+}
+</style>
+</head>
+
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let t = 0;
+
+function heart(a) {
+    return {
+        x: 16 * Math.pow(Math.sin(a), 3),
+        y: 13 * Math.cos(a) - 5 * Math.cos(2 * a) - 2 * Math.cos(3 * a) - Math.cos(4 * a)
+    };
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < 200; i++) {
+        const a = i * 0.1;
+        const p = heart(a);
+
+        const x = canvas.width / 2 + p.x * 15;
+        const y = canvas.height / 2 - p.y * 15;
+
+        ctx.font = "14px Arial";
+        ctx.fillStyle = "pink";
+        ctx.fillText("I love you", x + Math.sin(t) * 5, y + Math.cos(t) * 5);
+    }
+
+    t += 0.05;
+    requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+</body>
+</html>
